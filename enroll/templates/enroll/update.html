@@ -1,0 +1,16 @@
+{% extends 'enroll/base.html' %}
+
+{% block content %}
+    <div class="row"> 
+        <div class="col-sm-8">
+            <h4 class="test-center alert alert-info">UpdateADD new student</h4>
+            <form action="" method="post"> 
+                <!-- When post request send you need to send CSRF token as well for sequrity pourpose => Mandatory-->
+                {%csrf_token%}
+                {{form.as_p}}
+                <input type="submit" class="btn btn-success" value="Update">
+                <a href="{% url 'add_show' %}" class="btn btn-warning">Back</a>
+            </form>
+        </div>       
+    </div>
+{% endblock content %}

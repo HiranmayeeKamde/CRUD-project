@@ -1,0 +1,51 @@
+{% extends 'enroll/base.html' %}
+
+{% block content %}
+    <div class="row"> 
+        <div class="col-sm-4">
+            <h4 class="test-center alert alert-info">ADD new student</h4>
+            <form action="" method="post"> 
+                <!-- When post request send you need to send CSRF token as well for sequrity pourpose => Mandatory-->
+                {%csrf_token%}
+                {{form.as_p}}
+                <input type="submit" class="btb btn-success" value="ADD">
+            </form>
+        </div>
+        <div class="col-sm-8">
+            <h4 class="test-center alert alert-info"> Show student data </h4> 
+            {% if stu %}
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for st in stu %}
+                  <tr>
+                    <th>{{st.id}}</th>
+                    <td>{{st.name}}</td>
+                    <td>{{st.email}}</td>
+                    <td>{{st.password}}</td>
+                    <td>
+                        <a href="{% url 'updatedata' st.id %}" class="btn btn-warning">Edit</a>
+                    </td>
+                    <td>
+                        <form action ="{%url 'delete_data' st.id %}" method ="POST">
+                            {%csrf_token%}
+                            <input type="submit" class="btn btn-danger" value="Delete">
+                        </form>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            {% else %}
+              <h4 class="text-center alert alert-danger"> No record is found</h4>
+            {% endif %}
+        </div>
+    </div>
+{%endblock content %}
